@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Notificación al hacer clic en un enlace</title>
+</head>
+<body>
+    <a href="#" id="miEnlace">Haz clic aquí</a>
+
+    <script>
+        // Obtén el enlace por su ID
+        const enlace = document.getElementById('miEnlace');
+
+        // Agrega un evento de clic al enlace
+        enlace.addEventListener('click', function(event) {
+            // Evita que el enlace se abra de forma predeterminada
+            event.preventDefault();
+
+            // Verifica si las notificaciones son compatibles con el navegador
+            if ('Notification' in window) {
+                // Solicita permiso para mostrar notificaciones
+                Notification.requestPermission()
+                    .then(function(permission) {
+                        if (permission === 'granted') {
+                            // Crea y muestra la notificación
+                            new Notification('¡Esta página web puede contener malware!', {
+                                body: 'Hemos detectado una posible amenaza en esta página web.'
+                            });
+                        }
+                    });
+            }
+        });
+    </script>
+</body>
+</html>
